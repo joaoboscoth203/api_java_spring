@@ -1,14 +1,27 @@
 package br.gov.ce.fortaleza.amc.aet.controle;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.gov.ce.fortaleza.amc.aet.modelo.Cliente;
+import br.gov.ce.fortaleza.amc.aet.repositorio.Repositorio;
 
 @RestController
 public class Controle {
     
-    @GetMapping("/teste")
-    public String teste() {
-        return "Hello, Clébio!";
+    @Autowired
+    private Repositorio acao;
 
+    @PostMapping("/")
+    public Cliente cadastrar(@RequestBody Cliente c) {
+        return acao.save(c);
+    }
+    
+    @GetMapping("/")
+    public Iterable<Cliente> teste() {
+        return acao.findAll();
     }
 }
